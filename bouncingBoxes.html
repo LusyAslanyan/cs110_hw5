@@ -1,0 +1,54 @@
+<html>
+<body>
+
+<canvas id="canvas" width="500" height="300"></canvas>
+
+<script>
+
+	let canvas = document.getElementById("canvas");
+	let context = canvas.getContext("2d");
+
+	let xd = 1;
+	let direction = 1;
+
+	const points = [
+		{
+			x: 0,
+			y: 50,
+			width: 50,
+			height: 50,
+			color: "grey"
+		},
+		{
+			x: 50,
+			y: 50,
+			width: 50,
+			height: 50,
+			color: "black"
+		},
+	];
+
+	let draw = function() {
+		context.clearRect(0, 0, canvas.width, canvas.height)
+		points.forEach(function(point) {
+			context.fillStyle = point.color;
+			context.fillRect(point.x, point.y, point.width, point.height);
+			
+			point.x += xd * direction; 
+		});
+
+		if (points[points.length-1].x >= 450 || points[points.length-1].x <= 50 ) {
+			direction *= -1
+		}
+	}
+	
+	let animate = function() {
+		draw();
+		setTimeout(animate, 10);
+	};
+	animate();
+
+</script>
+
+</body>
+</html>
